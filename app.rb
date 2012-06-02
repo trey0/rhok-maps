@@ -36,6 +36,10 @@ class RHOK < Sinatra::Base
   helpers Sinatra::Partials
 
   assets {
+  	serve '/js',  from: 'js'
+  	serve '/css', from: 'css'
+  	serve '/img', from: 'images'
+
   	js :application, '/js/application.js', [
   		'/js/zepto.js',
   		'/js/underscore.js',
