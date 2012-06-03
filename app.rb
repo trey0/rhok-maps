@@ -2,6 +2,9 @@ require 'rubygems'
 require 'bundler'
 require 'sinatra'
 require 'sinatra/assetpack'
+require 'sinatra/reloader' if development?
+require 'json'
+
 
 # Source: https://gist.github.com/119874
 module Sinatra::Partials
@@ -26,7 +29,6 @@ module Sinatra::Partials
   end
 end
 
-
 class RHOK < Sinatra::Base
   set :root, File.dirname(__FILE__)
   set :public_folder, File.dirname(__FILE__) + '/static'
@@ -44,7 +46,11 @@ class RHOK < Sinatra::Base
   		'/js/zepto.js',
   		'/js/underscore.js',
   		'/js/backbone.js',
-  		'/js/handlebars.js'
+  		'/js/handlebars.js',
+  		'/js/preload.js',
+  		'/js/Models/*.js',
+  		'/js/Views/*.js',
+  		'/js/Bootstrap.js'
   	]
 
   	css :application, '/css/application.css', [
@@ -58,6 +64,11 @@ class RHOK < Sinatra::Base
 
   get '/' do
   	haml :index
+  end
+
+  get '/mapsets' do
+  	content_type :json
+  	{:foo => 'bar'}.to_json
   end
 end
 

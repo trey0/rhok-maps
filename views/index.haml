@@ -2,6 +2,7 @@
 %html{:lang => 'en'}
   %head
     %meta{:charset => 'utf-8'}
+    %title= 'RHoK Mapping Application'
 
     = css :application
 
@@ -9,4 +10,32 @@
     = js :application
 
   %body
-    %h2= 'Hello RHoK!'
+    #header
+      /= 'header'
+      %img{:src => 'http://mapmixer.org/static/mixer/icons/mapMixerLogo.png'}
+    
+    #map
+      = 'map'
+    
+    #current
+      = 'current'
+    
+    #feeds
+      = 'feeds'
+    
+    %script#feedsTemplate{:type => 'text/x-handlebars-templates'}
+      %h2= 'Map Layers'
+      %ul.feedsList
+        = '{{#each feeds}}'
+        %li{:data => {:id => '{{this.id}}'}}
+          = '{{this.name}}'
+          = '<div class="tag">Add To Map</div>'
+        = '{{/each}}'
+    
+    %script#mapsetTemplate{:type => 'text/x-handlebars-templates'}
+      %h2
+        = 'Current Layers <div id="button">Save</div>'
+      %ul.currentList
+        = '{{#each feeds}}'
+        %li{:data => {:id => '{{this.id}}'}}= '{{this.name}}'
+        = '{{/each}}'
